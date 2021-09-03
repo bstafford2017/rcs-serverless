@@ -1,0 +1,72 @@
+service: rcs-serverless
+
+custom:
+  settings:
+    USERS_TABLE: Users
+
+plugins:
+  - serverless-offline
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-2
+  environment: ${self:custom.settings}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.USERS_TABLE}'
+
+functions:
+  getUser:
+    handler: src/lambdas/user.getUser
+    events:
+      - http:
+          path: /users/{id}
+          method: get
+  getUsers:
+    handler: src/lambdas/user.getUsers
+    events:
+      - http:
+          path: /users
+          method: get
+  createUser:
+    handler: src/lambdas/user.createUser
+    events:
+      - http:
+          path: /users
+          method: post
+  updateUser:
+    handler: src/lambdas/user.updateUser
+    events:
+      - http:
+          path: /users/{id}
+          method: put
+  deleteUser:
+    handler: src/lambdas/user.deleteUser
+    events:
+      - http:
+          path: /users/{id}
+          method: delete
+
+resources:
+  Resources:
+    PostsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: 'id'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'id'
+            KeyType: 'HASH'
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.settings.USERS_TABLE}
