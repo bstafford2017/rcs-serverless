@@ -4,6 +4,7 @@ custom:
   settings:
     USERS_TABLE: Users
     ROOMS_TABLE: Rooms
+    EVENTS_TABLE: Events
 
 plugins:
   - serverless-offline
@@ -84,6 +85,36 @@ functions:
     events:
       - http:
           path: /rooms/{id}
+          method: delete
+  getEvent:
+    handler: src/lambdas/event.getEvent
+    events:
+      - http:
+          path: /events/{id}
+          method: get
+  getEvents:
+    handler: src/lambdas/event.getEvents
+    events:
+      - http:
+          path: /events
+          method: get
+  createEvent:
+    handler: src/lambdas/event.createEvent
+    events:
+      - http:
+          path: /events
+          method: post
+  updateEvent:
+    handler: src/lambdas/event.updateEvent
+    events:
+      - http:
+          path: /events/{id}
+          method: put
+  deleteEvent:
+    handler: src/lambdas/event.deleteEvent
+    events:
+      - http:
+          path: /events/{id}
           method: delete
 
 resources:

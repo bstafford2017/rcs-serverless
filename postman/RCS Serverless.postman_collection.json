@@ -173,7 +173,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "cfb3050f-c044-49b8-b5c8-2cb9c96da3f5"
 								}
 							]
 						}
@@ -207,7 +207,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"number\": \"203\",\n\t\"seats\": 12,\n\t\"projector\": true,\n\t\"building\": {\n\t\t\"name\": \"test\"\n\t}\n}",
+							"raw": "{\n\t\"number\": \"12\",\n\t\"seats\": 12,\n\t\"projector\": true,\n\t\"building\": {\n\t\t\"name\": \"TestInsert\"\n\t}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -258,7 +258,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "fd21ff75-5b30-4c9d-b62d-8dffea71ff35"
+									"value": "78c214f6-0b0e-47f5-a197-fe957c128350"
 								}
 							]
 						}
@@ -286,6 +286,151 @@
 								{
 									"key": "id",
 									"value": "223c2145-2095-4e51-acf2-b4f4e32b1423"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/events/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"events",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6d1b3027-602d-4b49-aad7-5e04d0c41c9d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"startTime\": \"11:45:00.000\",\n\t\"endTime\": \"12:45:00.000\",\n\t\"startDate\": \"2016-11-09\",\n\t\"endDate\": \"2017-11-09\",\n\t\"room\": \"78c214f6-0b0e-47f5-a197-fe957c128350\",\n\t\"user\": \"975051b9-9c17-4dc3-be31-53c4f912b112\",\n\t\"recur\": [\n\t\t\"MONDAY\",\n\t\t\"TUESDAY\"\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update event",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"startTime\": \"13:45:00.000\",\n\t\"endTime\": \"14:45:00.000\",\n\t\"startDate\": \"2016-11-09\",\n\t\"endDate\": \"2018-11-09\",\n\t\"room\": \"78c214f6-0b0e-47f5-a197-fe957c128350\",\n\t\"user\": \"975051b9-9c17-4dc3-be31-53c4f912b112\",\n\t\"recur\": [\n\t\t\"MONDAY\",\n\t\t\"TUESDAY\",\n\t\t\"FRIDAY\"\n\t]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/events/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"events",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6d1b3027-602d-4b49-aad7-5e04d0c41c9d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/events/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"events",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6d1b3027-602d-4b49-aad7-5e04d0c41c9d"
 								}
 							]
 						}
