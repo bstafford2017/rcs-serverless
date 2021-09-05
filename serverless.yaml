@@ -3,6 +3,7 @@ service: rcs-serverless
 custom:
   settings:
     USERS_TABLE: Users
+    ROOMS_TABLE: Rooms
 
 plugins:
   - serverless-offline
@@ -53,6 +54,36 @@ functions:
     events:
       - http:
           path: /users/{id}
+          method: delete
+  getRoom:
+    handler: src/lambdas/room.getRoom
+    events:
+      - http:
+          path: /rooms/{id}
+          method: get
+  getRooms:
+    handler: src/lambdas/room.getRooms
+    events:
+      - http:
+          path: /rooms
+          method: get
+  createRoom:
+    handler: src/lambdas/room.createRoom
+    events:
+      - http:
+          path: /rooms
+          method: post
+  updateRoom:
+    handler: src/lambdas/room.updateRoom
+    events:
+      - http:
+          path: /rooms/{id}
+          method: put
+  deleteRoom:
+    handler: src/lambdas/room.deleteRoom
+    events:
+      - http:
+          path: /rooms/{id}
           method: delete
 
 resources:

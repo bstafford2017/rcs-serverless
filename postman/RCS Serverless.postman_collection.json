@@ -6,143 +6,294 @@
 	},
 	"item": [
 		{
-			"name": "Get user",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/dev/users/:id",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"dev",
-						"users",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "1"
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get users",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/dev/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"dev",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create user",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"username\": \"weer\",\n\t\"password\": \"weer\",\n\t\"firstName\": \"asd\",\n\t\"lastName\": \"ads\",\n\t\"admin\": false\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/dev/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"dev",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update user",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"username\": \"weer\",\n\t\"password\": \"weer\",\n\t\"firstName\": \"asd\",\n\t\"lastName\": \"ads\",\n\t\"admin\": false\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"users"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/dev/users/:id",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"dev",
-						"users",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "fd21ff75-5b30-4c9d-b62d-8dffea71ff35"
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"weer\",\n\t\"password\": \"weer\",\n\t\"firstName\": \"asd\",\n\t\"lastName\": \"ads\",\n\t\"admin\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"users"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"weer\",\n\t\"password\": \"weer\",\n\t\"firstName\": \"asd\",\n\t\"lastName\": \"ads\",\n\t\"admin\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "fd21ff75-5b30-4c9d-b62d-8dffea71ff35"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "223c2145-2095-4e51-acf2-b4f4e32b1423"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Delete user",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/dev/users/:id",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"dev",
-						"users",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "223c2145-2095-4e51-acf2-b4f4e32b1423"
+			"name": "Rooms",
+			"item": [
+				{
+					"name": "Get room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/rooms/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "Get rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/rooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create room",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"number\": \"203\",\n\t\"seats\": 12,\n\t\"projector\": true,\n\t\"building\": {\n\t\t\"name\": \"test\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/rooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update room",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"number\": \"203\",\n\t\"seats\": 12,\n\t\"projector\": true,\n\t\"building\": {\n\t\t\"name\": \"Harrington\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/rooms/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "fd21ff75-5b30-4c9d-b62d-8dffea71ff35"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete room",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/rooms/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "223c2145-2095-4e51-acf2-b4f4e32b1423"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
