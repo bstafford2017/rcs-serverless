@@ -9,12 +9,7 @@ const getUser = async (event, _, callback) => {
   const { id } = pathParameters
 
   if (!id) {
-    const errors = [
-      {
-        message: 'Please specify all fields.'
-      }
-    ]
-    callback(null, response(400, { errors }))
+    callback(null, response(400, { message: 'Please specify all fields.' }))
   }
 
   try {
@@ -24,7 +19,8 @@ const getUser = async (event, _, callback) => {
         FilterExpression: 'id = :id',
         ExpressionAttributeValues: {
           ':id': id
-        }
+        },
+        Limit: 1
       })
       .promise()
     callback(null, response(200, { users: Items }))
@@ -53,7 +49,7 @@ const createUser = async (event, _, callback) => {
   )
 
   if (!username || !password || !firstName || !lastName) {
-    callback(null, response(400, { msg: 'Please specify all fields.' }))
+    callback(null, response(400, { message: 'Please specify all fields.' }))
   }
 
   const user = {
@@ -88,7 +84,7 @@ const updateUser = async (event, _, callback) => {
   )
 
   if (!id || !username || !password || !firstName || !lastName) {
-    callback(null, response(400, { msg: 'Please specify all fields.' }))
+    callback(null, response(400, { message: 'Please specify all fields.' }))
   }
 
   const user = {
@@ -130,12 +126,7 @@ const deleteUser = async (event, _, callback) => {
   const { id } = pathParameters
 
   if (!id) {
-    const errors = [
-      {
-        message: 'Please specify all fields.'
-      }
-    ]
-    callback(null, response(400, { errors }))
+    callback(null, response(400, { message: 'Please specify all fields.' }))
   }
 
   try {

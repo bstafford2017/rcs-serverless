@@ -9,12 +9,7 @@ const getRoom = async (event, _, callback) => {
   const { id } = pathParameters
 
   if (!id) {
-    const errors = [
-      {
-        message: 'Please specify all fields.'
-      }
-    ]
-    callback(null, response(400, { errors }))
+    callback(null, response(400, { message: 'Please specify all fields.' }))
   }
 
   try {
@@ -24,7 +19,8 @@ const getRoom = async (event, _, callback) => {
         FilterExpression: 'id = :id',
         ExpressionAttributeValues: {
           ':id': id
-        }
+        },
+        Limit: 1
       })
       .promise()
     callback(null, response(200, { rooms: Items }))
@@ -56,7 +52,7 @@ const createRoom = async (event, _, callback) => {
   } = JSON.parse(body)
 
   if (!number || !seats || !name) {
-    callback(null, response(400, { msg: 'Please specify all fields.' }))
+    callback(null, response(400, { message: 'Please specify all fields.' }))
   }
 
   // Get building id for the associated name
@@ -120,7 +116,7 @@ const updateRoom = async (event, _, callback) => {
   } = JSON.parse(body)
 
   if (!roomId || !number || !seats || !name) {
-    callback(null, response(400, { msg: 'Please specify all fields.' }))
+    callback(null, response(400, { message: 'Please specify all fields.' }))
   }
 
   // Get building id for the associated name
@@ -196,12 +192,7 @@ const deleteRoom = async (event, _, callback) => {
   const { id } = pathParameters
 
   if (!id) {
-    const errors = [
-      {
-        message: 'Please specify all fields.'
-      }
-    ]
-    callback(null, response(400, { errors }))
+    callback(null, response(400, { message: 'Please specify all fields.' }))
   }
 
   try {
