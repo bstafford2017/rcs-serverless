@@ -5,16 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env USERS_TABLE=Users tsc",
     "sls": "sls offline start",
-    "deploy:getUser": "serverless deploy function -f getUser",
-    "deploy:getUsers": "serverless deploy function -f getUsers"
+    "deploy": "serverless deploy"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.853.0",
-    "cross-env": "^7.0.3",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "serverless": "^2.57.0",
+    "serverless-offline": "^8.1.0"
   }
 }
