@@ -1,5 +1,5 @@
 const { DynamoDB } = require('aws-sdk')
-const { response } = require('../utils/index')
+const { response, validationError, serverError } = require('../utils/index')
 const { v4: uuid } = require('uuid')
 
 const db = new DynamoDB.DocumentClient()
@@ -18,7 +18,7 @@ const getEvent = async (event, _, callback) => {
   const { id } = pathParameters
 
   if (!id) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   try {
@@ -32,26 +32,26 @@ const getEvent = async (event, _, callback) => {
         Limit: 1
       })
       .promise()
-    callback(null, response(200, { events: Items }))
-  } catch (e) {
-    callback(null, response(500, e))
+    return response({ events: Items })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const getEvents = async (_, __, callback) => {
+const getEvents = async () => {
   try {
     const { Items } = await db
       .scan({
         TableName: process.env.EVENTS_TABLE
       })
       .promise()
-    callback(null, response(200, { events: Items }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ events: Items })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const createEvent = async (event, _, callback) => {
+const createEvent = async (event) => {
   const { body } = event
   const {
     startTime,
@@ -72,7 +72,7 @@ const createEvent = async (event, _, callback) => {
     !user ||
     !recur
   ) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   try {
@@ -80,31 +80,22 @@ const createEvent = async (event, _, callback) => {
     const verifyStartDate = new Date(startDate)
     const verifyEndDate = new Date(endDate)
     if (verifyStartDate.getTime() >= verifyEndDate.getTime()) {
-      callback(
-        null,
-        response(400, { message: 'Please specify a valid date period' })
-      )
+      return validationError('Please specify a valid date period.')
     }
 
     // Verify time
     const verifyStartTime = new Date('1970-01-01T' + startTime + 'Z')
     const verifyEndTime = new Date('1970-01-01T' + endTime + 'Z')
     if (verifyStartTime.getTime() >= verifyEndTime.getTime()) {
-      callback(
-        null,
-        response(400, { message: 'Please specify a valid time period' })
-      )
+      return validationError('Please specify a valid time period.')
     }
-  } catch (e) {
-    callback(
-      null,
-      response(400, { message: 'Please specify valid dates/times' })
-    )
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   // Verify recur list
   if (recur.some((day) => !validWeekdays.includes(day))) {
-    callback(null, response(400, { message: 'Please specify valid weekdays' }))
+    return validationError('Please specify valid weekdays.')
   }
 
   // Verify user exists
@@ -123,12 +114,12 @@ const createEvent = async (event, _, callback) => {
       })
       .promise()
     existingUsers = Items
-  } catch (e) {
-    callback(null, response(500, e.message))
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   if (existingUsers.length === 0) {
-    callback(null, response(400, { message: 'User id does not exist' }))
+    return validationError('User id does not exist.')
   }
 
   // Verify room exists
@@ -147,12 +138,12 @@ const createEvent = async (event, _, callback) => {
       })
       .promise()
     existingRooms = Items
-  } catch (e) {
-    callback(null, response(500, e.message))
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   if (existingRooms.length === 0) {
-    callback(null, response(400, { message: 'Room id does not exist' }))
+    return validationError('Room id does not exist.')
   }
 
   const newEvent = {
@@ -173,9 +164,9 @@ const createEvent = async (event, _, callback) => {
         Item: newEvent
       })
       .promise()
-    callback(null, response(200, { events: [newEvent] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ events: [newEvent] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
@@ -204,7 +195,7 @@ const updateEvent = async (event, _, callback) => {
     !user ||
     !recur
   ) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   try {
@@ -212,31 +203,22 @@ const updateEvent = async (event, _, callback) => {
     const verifyStartDate = new Date(startDate)
     const verifyEndDate = new Date(endDate)
     if (verifyStartDate.getTime() >= verifyEndDate.getTime()) {
-      callback(
-        null,
-        response(400, { message: 'Please specify a valid date period' })
-      )
+      return validationError('Please specify a valid date period.')
     }
 
     // Verify time
     const verifyStartTime = new Date('1970-01-01T' + startTime + 'Z')
     const verifyEndTime = new Date('1970-01-01T' + endTime + 'Z')
     if (verifyStartTime.getTime() >= verifyEndTime.getTime()) {
-      callback(
-        null,
-        response(400, { message: 'Please specify a valid time period' })
-      )
+      return validationError('Please specify a valid time period.')
     }
-  } catch (e) {
-    callback(
-      null,
-      response(400, { message: 'Please specify valid dates/times' })
-    )
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   // Verify recur list
   if (recur.some((day) => validWeekdays.includes(day))) {
-    callback(null, response(400, { message: 'Please specify valid weekdays' }))
+    return validationError('Please specify valid weekdays.')
   }
 
   // Verify event exists
@@ -255,12 +237,12 @@ const updateEvent = async (event, _, callback) => {
       })
       .promise()
     existingEvents = Items
-  } catch (e) {
-    callback(null, response(500, e.message))
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   if (existingEvents.length === 0) {
-    callback(null, response(400, { message: 'Event id does not exist' }))
+    return validationError('Event id does not exist.')
   }
 
   // Verify user exists
@@ -279,12 +261,12 @@ const updateEvent = async (event, _, callback) => {
       })
       .promise()
     existingUsers = Items
-  } catch (e) {
-    callback(null, response(500, e.message))
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   if (existingUsers.length === 0) {
-    callback(null, response(400, { message: 'User id does not exist' }))
+    return validationError('User id does not exist.')
   }
 
   // Verify room exists
@@ -303,12 +285,12 @@ const updateEvent = async (event, _, callback) => {
       })
       .promise()
     existingRooms = Items
-  } catch (e) {
-    callback(null, response(500, e.message))
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   if (existingRooms.length === 0) {
-    callback(null, response(400, { message: 'Room id does not exist' }))
+    return validationError('Room id does not exist.')
   }
 
   const newEvent = {
@@ -346,18 +328,18 @@ const updateEvent = async (event, _, callback) => {
         ReturnValues: 'UPDATED_NEW'
       })
       .promise()
-    callback(null, response(200, { events: [newEvent] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ events: [newEvent] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const deleteEvent = async (event, _, callback) => {
+const deleteEvent = async (event) => {
   const { pathParameters } = event
   const { id } = pathParameters
 
   if (!id) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   // Verify event exists
@@ -377,11 +359,11 @@ const deleteEvent = async (event, _, callback) => {
       .promise()
     existingEvents = Items
   } catch (e) {
-    callback(null, response(500, e.message))
+    return response(500, { message: e.message })
   }
 
   if (existingEvents.length === 0) {
-    callback(null, response(400, { message: 'Event id does not exist' }))
+    return validationError('Event id does not exist.')
   }
 
   try {
@@ -393,9 +375,9 @@ const deleteEvent = async (event, _, callback) => {
         }
       })
       .promise()
-    callback(null, response(200, { events: [{ id }] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ events: [{ id }] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 

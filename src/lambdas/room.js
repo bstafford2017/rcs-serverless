@@ -1,15 +1,15 @@
 const { DynamoDB } = require('aws-sdk')
-const { response } = require('../utils/index')
+const { response, serverError, validationError } = require('../utils/index')
 const { v4: uuid } = require('uuid')
 
 const db = new DynamoDB.DocumentClient()
 
-const getRoom = async (event, _, callback) => {
+const getRoom = async (event) => {
   const { pathParameters } = event
   const { id } = pathParameters
 
   if (!id) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   try {
@@ -23,26 +23,26 @@ const getRoom = async (event, _, callback) => {
         Limit: 1
       })
       .promise()
-    callback(null, response(200, { rooms: Items }))
-  } catch (e) {
-    callback(null, response(500, e))
+    return response({ rooms: Items })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const getRooms = async (_, __, callback) => {
+const getRooms = async () => {
   try {
     const { Items } = await db
       .scan({
         TableName: process.env.ROOMS_TABLE
       })
       .promise()
-    callback(null, response(200, { rooms: Items }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ rooms: Items })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const createRoom = async (event, _, callback) => {
+const createRoom = async (event) => {
   const { body } = event
   const {
     number,
@@ -52,7 +52,7 @@ const createRoom = async (event, _, callback) => {
   } = JSON.parse(body)
 
   if (!number || !seats || !name) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   // Get building id for the associated name
@@ -72,8 +72,8 @@ const createRoom = async (event, _, callback) => {
       })
       .promise()
     existingBuildings = Items
-  } catch (e) {
-    callback(null, response(500, e.message))
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   const existingBuilding = existingBuildings[0] || {}
@@ -97,13 +97,13 @@ const createRoom = async (event, _, callback) => {
         Item: room
       })
       .promise()
-    callback(null, response(200, { rooms: [room] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ rooms: [room] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const updateRoom = async (event, _, callback) => {
+const updateRoom = async (event) => {
   const { pathParameters } = event
   const { id: roomId } = pathParameters
 
@@ -116,7 +116,7 @@ const updateRoom = async (event, _, callback) => {
   } = JSON.parse(body)
 
   if (!roomId || !number || !seats || !name) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   // Get building id for the associated name
@@ -136,8 +136,8 @@ const updateRoom = async (event, _, callback) => {
       })
       .promise()
     existingBuildings = Items
-  } catch (e) {
-    callback(null, response(500, e.message))
+  } catch ({ message }) {
+    return serverError(message)
   }
 
   const existingBuilding = existingBuildings[0]
@@ -181,9 +181,9 @@ const updateRoom = async (event, _, callback) => {
         ReturnValues: 'UPDATED_NEW'
       })
       .promise()
-    callback(null, response(200, { rooms: [room] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ rooms: [room] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
@@ -192,7 +192,7 @@ const deleteRoom = async (event, _, callback) => {
   const { id } = pathParameters
 
   if (!id) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   try {
@@ -204,9 +204,9 @@ const deleteRoom = async (event, _, callback) => {
         }
       })
       .promise()
-    callback(null, response(200, { rooms: [{ id }] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ rooms: [{ id }] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 

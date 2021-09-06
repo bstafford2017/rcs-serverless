@@ -1,15 +1,15 @@
 const { DynamoDB } = require('aws-sdk')
-const { response } = require('../utils/index')
+const { response, validationError, serverError } = require('../utils/index')
 const { v4: uuid } = require('uuid')
 
 const db = new DynamoDB.DocumentClient()
 
-const getUser = async (event, _, callback) => {
+const getUser = async (event) => {
   const { pathParameters } = event
   const { id } = pathParameters
 
   if (!id) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   try {
@@ -23,33 +23,33 @@ const getUser = async (event, _, callback) => {
         Limit: 1
       })
       .promise()
-    callback(null, response(200, { users: Items }))
-  } catch (e) {
-    callback(null, response(500, e))
+    return response({ users: Items })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const getUsers = async (_, __, callback) => {
+const getUsers = async () => {
   try {
     const { Items } = await db
       .scan({
         TableName: process.env.USERS_TABLE
       })
       .promise()
-    callback(null, response(200, { users: Items }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ users: Items })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const createUser = async (event, _, callback) => {
+const createUser = async (event) => {
   const { body } = event
   const { username, password, firstName, lastName, admin = false } = JSON.parse(
     body
   )
 
   if (!username || !password || !firstName || !lastName) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   const user = {
@@ -68,13 +68,13 @@ const createUser = async (event, _, callback) => {
         Item: user
       })
       .promise()
-    callback(null, response(200, { users: [user] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ users: [user] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const updateUser = async (event, _, callback) => {
+const updateUser = async (event) => {
   const { pathParameters } = event
   const { id } = pathParameters
 
@@ -84,7 +84,7 @@ const updateUser = async (event, _, callback) => {
   )
 
   if (!id || !username || !password || !firstName || !lastName) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   const user = {
@@ -115,18 +115,18 @@ const updateUser = async (event, _, callback) => {
         ReturnValues: 'UPDATED_NEW'
       })
       .promise()
-    callback(null, response(200, { users: [user] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ users: [user] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
-const deleteUser = async (event, _, callback) => {
+const deleteUser = async (event) => {
   const { pathParameters } = event
   const { id } = pathParameters
 
   if (!id) {
-    callback(null, response(400, { message: 'Please specify all fields.' }))
+    return validationError('Please specify all fields.')
   }
 
   try {
@@ -138,9 +138,9 @@ const deleteUser = async (event, _, callback) => {
         }
       })
       .promise()
-    callback(null, response(200, { users: [{ id }] }))
-  } catch (e) {
-    callback(null, response(500, e.message))
+    return response({ users: [{ id }] })
+  } catch ({ message }) {
+    return serverError(message)
   }
 }
 
