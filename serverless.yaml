@@ -24,6 +24,8 @@ provider:
         - dynamodb:DeleteItem
       Resource:
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.USERS_TABLE}'
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.ROOMS_TABLE}'
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.EVENTS_TABLE}'
 
 functions:
   getUser:
@@ -116,19 +118,3 @@ functions:
       - http:
           path: /events/{id}
           method: delete
-
-resources:
-  Resources:
-    PostsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: 'id'
-            AttributeType: 'S'
-        KeySchema:
-          - AttributeName: 'id'
-            KeyType: 'HASH'
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:custom.settings.USERS_TABLE}
