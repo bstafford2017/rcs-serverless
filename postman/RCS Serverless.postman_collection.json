@@ -9,6 +9,34 @@
 			"name": "Users",
 			"item": [
 				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"weer\",\n\t\"password\": \"weer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rootURL}}/dev/users/login",
+							"host": [
+								"{{rootURL}}"
+							],
+							"path": [
+								"dev",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get user",
 					"request": {
 						"method": "GET",

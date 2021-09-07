@@ -28,6 +28,12 @@ provider:
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.EVENTS_TABLE}'
 
 functions:
+  login:
+    handler: src/lambdas/user.login
+    events:
+      - http:
+          path: /users/login
+          method: post
   getUser:
     handler: src/lambdas/user.getUser
     events:

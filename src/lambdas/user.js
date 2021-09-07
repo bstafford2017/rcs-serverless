@@ -4,6 +4,32 @@ const { v4: uuid } = require('uuid')
 
 const db = new DynamoDB.DocumentClient()
 
+const login = async (event) => {
+  const { body } = event
+  const { username, password } = JSON.parse(body)
+
+  if (!username || !password) {
+    return validationError('Please specify all fields.')
+  }
+
+  try {
+    const { Items } = await db
+      .scan({
+        TableName: process.env.USERS_TABLE,
+        FilterExpression: 'username=:username and password=:password',
+        ExpressionAttributeValues: {
+          ':username': username,
+          ':password': password
+        },
+        Limit: 1
+      })
+      .promise()
+    return response({ users: Items })
+  } catch ({ message }) {
+    return serverError(message)
+  }
+}
+
 const getUser = async (event) => {
   const { pathParameters } = event
   const { id } = pathParameters
@@ -145,6 +171,7 @@ const deleteUser = async (event) => {
 }
 
 module.exports = {
+  login,
   getUser,
   getUsers,
   createUser,
