@@ -29,7 +29,7 @@ const getUser = async (event) => {
   }
 }
 
-const getUsers = async () => {
+const getUsers = async (_, __, callback) => {
   try {
     const { Items } = await db
       .scan({

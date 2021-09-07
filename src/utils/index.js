@@ -1,6 +1,6 @@
 const response = (body) => ({
   statusCode: 200,
-  header: {
+  headers: {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify(body)
@@ -8,7 +8,7 @@ const response = (body) => ({
 
 const validationError = (message) => ({
   statusCode: 400,
-  header: {
+  headers: {
     'Content-Type': 'application/json'
   },
   body: {
@@ -18,7 +18,7 @@ const validationError = (message) => ({
 
 const serverError = (message) => ({
   statusCode: 500,
-  header: {
+  headers: {
     'Content-Type': 'application/json'
   },
   body: {

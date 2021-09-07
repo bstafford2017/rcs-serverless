@@ -14,12 +14,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/users/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/users/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"users",
@@ -41,12 +39,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/users",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/users",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"users"
@@ -70,12 +66,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/dev/users",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/users",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"users"
@@ -99,12 +93,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/dev/users/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/users/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"users",
@@ -126,12 +118,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/users/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/users/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"users",
@@ -159,12 +149,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/rooms/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/rooms/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"rooms",
@@ -186,12 +174,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/rooms",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/rooms",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"rooms"
@@ -215,12 +201,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/dev/rooms",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/rooms",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"rooms"
@@ -244,12 +228,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/dev/rooms/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/rooms/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"rooms",
@@ -271,12 +253,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/rooms/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/rooms/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"rooms",
@@ -304,12 +284,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/events/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/events/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"events",
@@ -331,12 +309,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/events",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/events",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"events"
@@ -360,12 +336,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/dev/events",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/events",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"events"
@@ -389,12 +363,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/dev/events/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/events/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"events",
@@ -416,12 +388,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/dev/events/:id",
-							"protocol": "http",
+							"raw": "{{rootURL}}/dev/events/:id",
 							"host": [
-								"localhost"
+								"{{rootURL}}"
 							],
-							"port": "3000",
 							"path": [
 								"dev",
 								"events",
