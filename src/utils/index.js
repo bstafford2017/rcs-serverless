@@ -2,8 +2,7 @@ const response = (body) => ({
   statusCode: 200,
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true
+    'Access-Control-Allow-Origin': '*'
   },
   body: JSON.stringify(body)
 })
@@ -11,7 +10,8 @@ const response = (body) => ({
 const validationError = (message) => ({
   statusCode: 400,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
   },
   body: {
     message
@@ -21,7 +21,8 @@ const validationError = (message) => ({
 const serverError = (message) => ({
   statusCode: 500,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
   },
   body: {
     message

@@ -13,7 +13,7 @@ const validWeekdays = [
   'SUNDAY'
 ]
 
-const getEvent = async (event, _, callback) => {
+const getEvent = async (event) => {
   const { pathParameters } = event
   const { id } = pathParameters
 
