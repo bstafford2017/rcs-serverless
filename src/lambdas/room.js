@@ -56,7 +56,7 @@ const createRoom = async (event) => {
   }
 
   // Get building id for the associated name
-  let existingBuildings = []
+  let existingRooms = []
   try {
     const { Items } = await db
       .scan({
@@ -71,13 +71,15 @@ const createRoom = async (event) => {
         }
       })
       .promise()
-    existingBuildings = Items
+    existingRooms = Items
   } catch ({ message }) {
     return serverError(message)
   }
 
-  const existingBuilding = existingBuildings[0] || {}
-  const { id = uuid() } = existingBuilding
+  const existingRoom = existingRooms[0] || {}
+  const {
+    building: { id = uuid() }
+  } = existingRoom
 
   const room = {
     id: uuid(),
