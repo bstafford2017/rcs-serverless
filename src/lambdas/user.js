@@ -1,6 +1,7 @@
 const { DynamoDB } = require('aws-sdk')
 const { response, validationError, serverError } = require('../utils/index')
 const { v4: uuid } = require('uuid')
+const { sign } = require('jsonwebtoken')
 
 const db = new DynamoDB.DocumentClient()
 
@@ -24,7 +25,15 @@ const login = async (event) => {
         Limit: 1
       })
       .promise()
-    return response({ users: Items })
+    if (Items.length !== 0) {
+      const { id } = Items[0]
+      const token = sign({ id }, 'SECRET', {
+        expiresIn: '10h'
+      })
+      return response({ token })
+    } else {
+      return validationError('Invalid login')
+    }
   } catch ({ message }) {
     return serverError(message)
   }
@@ -70,9 +79,13 @@ const getUsers = async (_, __, callback) => {
 
 const createUser = async (event) => {
   const { body } = event
-  const { username, password, firstName, lastName, admin = false } = JSON.parse(
-    body
-  )
+  const {
+    username,
+    password,
+    firstName,
+    lastName,
+    admin = false
+  } = JSON.parse(body)
 
   if (!username || !password || !firstName || !lastName) {
     return validationError('Please specify all fields.')
@@ -105,9 +118,13 @@ const updateUser = async (event) => {
   const { id } = pathParameters
 
   const { body } = event
-  const { username, password, firstName, lastName, admin = false } = JSON.parse(
-    body
-  )
+  const {
+    username,
+    password,
+    firstName,
+    lastName,
+    admin = false
+  } = JSON.parse(body)
 
   if (!id || !username || !password || !firstName || !lastName) {
     return validationError('Please specify all fields.')

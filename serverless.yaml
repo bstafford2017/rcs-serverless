@@ -28,6 +28,8 @@ provider:
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.settings.EVENTS_TABLE}'
 
 functions:
+  auth:
+    handler: src/lambdas/auth.authenticate
   login:
     handler: src/lambdas/user.login
     events:
@@ -62,6 +64,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   getUsers:
     handler: src/lambdas/user.getUsers
     events:
@@ -79,6 +82,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   createUser:
     handler: src/lambdas/user.createUser
     events:
@@ -96,6 +100,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   updateUser:
     handler: src/lambdas/user.updateUser
     events:
@@ -113,6 +118,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   deleteUser:
     handler: src/lambdas/user.deleteUser
     events:
@@ -130,6 +136,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   getRoom:
     handler: src/lambdas/room.getRoom
     events:
@@ -147,6 +154,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   getRooms:
     handler: src/lambdas/room.getRooms
     events:
@@ -164,6 +172,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   createRoom:
     handler: src/lambdas/room.createRoom
     events:
@@ -181,6 +190,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   updateRoom:
     handler: src/lambdas/room.updateRoom
     events:
@@ -198,6 +208,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   deleteRoom:
     handler: src/lambdas/room.deleteRoom
     events:
@@ -215,6 +226,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   getEvent:
     handler: src/lambdas/event.getEvent
     events:
@@ -232,6 +244,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   getEvents:
     handler: src/lambdas/event.getEvents
     events:
@@ -249,6 +262,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   createEvent:
     handler: src/lambdas/event.createEvent
     events:
@@ -266,6 +280,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   updateEvent:
     handler: src/lambdas/event.updateEvent
     events:
@@ -283,6 +298,7 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
   deleteEvent:
     handler: src/lambdas/event.deleteEvent
     events:
@@ -300,3 +316,4 @@ functions:
               - X-Amz-User-Agent
               - Access-Control-Allow-Origin
               - Access-Control-Allow-Credentials
+          authorizer: auth
